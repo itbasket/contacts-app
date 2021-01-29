@@ -1,4 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+
+const useStyles = makeStyles({
+  root: {
+    marginTop: "24px",
+  },
+});
 
 const useContacts = () => {
   const [data, setData] = useState([]);
@@ -33,6 +42,7 @@ const useContacts = () => {
 };
 
 export const Contacts = () => {
+  const classes = useStyles();
   const contacts = useContacts();
 
   if (contacts.isLoading) {
@@ -43,5 +53,13 @@ export const Contacts = () => {
     return <div>Some error</div>;
   }
 
-  return <div>Contacts {contacts.data[0].name.first}</div>;
+  return (
+    <Container className={classes.root}>
+      <Grid container>
+        <Grid item xs={12}>
+          <div>Contacts {contacts.data[0].name.first}</div>
+        </Grid>
+      </Grid>
+    </Container>
+  );
 };
